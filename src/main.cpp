@@ -1,16 +1,64 @@
+
 #include <iostream>
+#include <limits>
+#include "../include/TodoList.h"
+#include "../include/Task.h"
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+void printMenu() {
+    std::cout << "\n=== Todo List Manager ===\n";
+    std::cout << "1. Add Task\n";
+    std::cout << "2. View All Tasks\n";
+    std::cout << "3. Remove Task\n";
+    std::cout << "4. Save & Exit\n"; // 改个名字，提示用户会保存
+    std::cout << "Enter choice: ";
+}
+
 int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
+    TodoList myTodoList;
 
-    for (int i = 1; i <= 5; i++) {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
+    // 程序启动时，自动读取数据
+    myTodoList.loadFromFile("todo_data.txt");
+
+    int choice = 0;
+
+    while (choice != 4) {
+        printMenu();
+        if (!(std::cin >> choice)) {
+            std::cout << "Invalid input. Please enter a number.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+        std::cin.ignore();
+
+        if (choice == 1) {
+            std::string desc;
+            std::cout << "Enter task description: ";
+            std::getline(std::cin, desc);
+
+            Task newTask(desc);
+            myTodoList.addTask(newTask);
+
+        } else if (choice == 2) {
+            myTodoList.displayAllTasks();
+
+        } else if (choice == 3) {
+            myTodoList.displayAllTasks();
+            if (myTodoList.getTaskCount() > 0) {
+                int taskNum;
+                std::cout << "Enter the number of the task to remove: ";
+                std::cin >> taskNum;
+                myTodoList.removeTask(taskNum);
+            }
+
+        } else if (choice == 4) {
+            // 退出前自动保存
+            myTodoList.saveToFile("todo_data.txt");
+            std::cout << "Goodbye!\n";
+        } else {
+            std::cout << "Invalid choice. Try again.\n";
+        }
     }
 
     return 0;
-    // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
 }
