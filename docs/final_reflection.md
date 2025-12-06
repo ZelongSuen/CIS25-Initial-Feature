@@ -6,7 +6,7 @@ I implemented three core features:
 1. **Add Task**: Users can input tasks with simple description.
 2. **Remove Task**: Users can delete tasks through the index, and the list will be automatically sorted.
 3. **Save/Load Feature**: When the program starts, it will load the data and save it to a file when it exits. This program can handle the simplest data management and ensure that the task list will not be lost after the program is closed.
-
+4. **Mark as Complete**: A new feature has been added, allowing users to switch the task status to [x], thereby providing an intuitive display of the progress.
 ## Section 2: What Remains
 
 I failed to complete all the project contents as originally planned. During the actual implementation, I found it too difficult and there wasn't enough time. Therefore, I had to significantly simplify the functions and attempted to achieve a program similar to task management in the simplest way.

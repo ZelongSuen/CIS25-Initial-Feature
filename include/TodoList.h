@@ -21,9 +21,11 @@ public:
     void displayAllTasks() const;
     int getTaskCount() const;
 
-    // --- 新增的功能 (Final Project Feature) ---
+    // S/L feature
     void saveToFile(const std::string& filename);
     void loadFromFile(const std::string& filename);
+    // mark complete feature
+    void markTaskComplete(int index);
 };
 
 #endif //INITIAL_FEATURE_TODOLIST_H
